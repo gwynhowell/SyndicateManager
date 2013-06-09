@@ -7,12 +7,16 @@ class Home(_BaseHandler):
     self.render('home.html')
 
 class Syndicates(_BaseHandler):
+  menu = 'Syndicates'
+  
   def get(self):
     syndicates = dal.list_user_syndicates_by_user_key(self.user.key)
     self.template_values['syndicates'] = syndicates
     self.render('syndicates.html')
     
 class Create(_BaseHandler):
+  menu = 'Create'
+  
   def get(self):
     self.template_values['games'] = dal.list_games()
     self.render('create.html')
@@ -36,6 +40,8 @@ class Create(_BaseHandler):
                      id=syndicate.key.id())
     
 class Syndicate(_BaseHandler):
+  menu = 'Syndicates'
+  
   def get(self):
     syndicate_id = self.request.get('id')
     syndicate = dal.syndicate_by_id(syndicate_id)

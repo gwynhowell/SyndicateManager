@@ -1,3 +1,4 @@
+<!-- 
 <nav id="menu">
 	<div>
 		<a href="/syndicates">View my Syndicates</a>
@@ -12,3 +13,21 @@
 		<a href="{{logout_url}}">Log out</a>
 	</div>
 </nav>
+
+-->
+
+<div class="well" style="padding: 10px 0px;">
+<ul class="nav nav-list">
+	<li class="nav-header">Syndicates</li>
+	<li class="active"><a href="/syndicates"><i class="icon-chevron-right"></i> View my Syndicates</a></li>
+	<li><a href="/join"><i class="icon-chevron-right"></i> Join a Syndicate</a></li>
+	<li><a href="/create"><i class="icon-chevron-right"></i> Create a Syndicate</a></li>
+	{% if is_admin %}
+	<li class="nav-header">Admin</li>
+	<li><a href="/admin/games"><i class="icon-chevron-right"></i> Manage Games</a></li>
+	{% endif %}
+	<li class="nav-header">Account</li>
+	<li><a href="/profile"><i class="icon-chevron-right"></i> Profile</a></li>
+	<li><a href="{{logout_url}}"><i class="icon-chevron-right"></i> Log out</a></li>
+</ul>
+</div>

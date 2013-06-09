@@ -72,7 +72,7 @@ class Syndicate(ndb.Model):
     game = self.game_key.get()
     manager = self.manager_key.get()
     
-    self.ganme_name = game.name
+    self.game_name = game.name
     self.manager_name = manager.display_name
   
 class Ticket(ndb.Model):

@@ -24,6 +24,8 @@ def jinja2_factory(app):
     return j
 
 class _BaseHandler(webapp2.RequestHandler):
+  menu = ''
+  
   def initialize(self, request, response):
     super(_BaseHandler, self).initialize(request, response)
     
@@ -61,5 +63,6 @@ class _BaseHandler(webapp2.RequestHandler):
     return jinja2.get_jinja2(factory=jinja2_factory, app=self.app)
 
   def render(self, path, **kwargs):
+    self.template_values['menu'] = self.menu
     kwargs.update(self.template_values)
     self.response.write(self.jinja2.render_template(path, **kwargs))

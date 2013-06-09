@@ -1,7 +1,60 @@
 {% extends "base.html" %}
 
+{% block js %}
+<script type="text/javascript">
+$(function() {
+	$('#tabs a').click(function(e) {
+		  e.preventDefault();
+		  $(this).tab('show');
+	});
+});
+</script>
+{% endblock %}
+
 {% block content %}
 
 <h3>Syndicate</h3>
 
+<ul id="tabs" class="nav nav-tabs">
+  <li class="active"><a href="#main_details">Main Details</a></li>
+  <li><a href="#upcoming">Upcoming Games</a></li>
+  <li><a href="#">Results</a></li>
+  <li><a href="#">Members</a></li>
+</ul>
+
+<div id="myTabContent" class="tab-content">
+	<div class="tab-pane fade active in" id="main_details">
+	
+		<form class="form-horizontal">
+		</form>
+	
+		<p></p>
+	</div>
+	<div class="tab-pane fade active in" id="upcoming">
+		<p></p>
+	</div>
+</div>
+
+Main Details
+ - Syndicate Name
+ - Game Name
+ - Price per Draw
+ - Draws Per Week: Monday and Thursday
+ - Manager
+ - Deputy Manager
+ 
+ - Allow members to opt in up to [x] draws in advance
+ - Automatically close opt in [x] hours before each draw
+ - Overdraft limit: $x.xx - allows users to opt in, even if they have no money in the kitty
+Upcoming Games
+ - Date, Price to play, Opt In / Opt Out
+ - Opt in to as many games as I have enough money in the kitty for
+Results
+ - Date, #Lines Entered, 
+Members
+ - Display Name, Amount in Kitty, Status
+
 {% endblock %}
+
+
+You are a manager for this syndicate. As a syndicate manager, you will be responsible for collection of monies from the syndicate members, and purchase of tickets.

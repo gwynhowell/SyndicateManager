@@ -17,26 +17,65 @@
 	{% block css %}{% endblock %}
 	
 	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
   	{% block js %}{% endblock %}
 </head>
 <body>
   <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
-	
-	<header id="header">
-		<h1>Syndicate Manager</h1>
-	</header>
-	
-	<div id="content_container">
-		{% if user %}
-			{% include "menu.html" %}
-		{% endif %}
-		
-		<div id="content" {% if user %}class="loggedin"{% endif %}>
-			{% block content %}
-			{% endblock %}
+
+
+
+
+
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container-fluid">
+			<a class="brand" href="#">Syndicate Manager</a>
+			
+			<div class="nav-collapse collapse">
+				<p class="navbar-text pull-right">
+					{% if user %}
+					Logged in as <a href="/profile" class="navbar-link">{{user.display_name}}</a>
+					&nbsp;|&nbsp;
+					<a href="{{logout_url}}" class="navbar-link">Log Out</a>
+					{% else %}
+					{% endif %}
+				</p>
+				<ul class="nav">
+					<li {% if menu == 'Syndicates' %}class="active"{% endif %}><a href="/syndicates">Syndicates</a></li>
+					<li {% if menu == 'Join' %}class="active"{% endif %}><a href="/join">Join</a></li>
+					<li {% if menu == 'Create' %}class="active"{% endif %}><a href="/create">Create</a></li>
+					
+					<li class="divider-vertical"></li>
+
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="/admin/games">Manage Games</a></li>
+							<li><a href="#">Filter2</a></li>
+						</ul>
+					</li>
+				</ul>
+          	</div>
 		</div>
-		<div class="clear"></div>
 	</div>
-	
+</div>
+
+	<div class="container-fluid" style="margin-top: 50px;">
+		<span class="row-fluid">
+			{% if menu == 'Admin' %}
+				<span class="span3" style="padding: 10px;">
+					{% include "menu.html" %}
+				</span>
+				<span class="span9">
+			{% else %}
+				<span class="span12">
+			{% endif %}
+					{% block content %}{% endblock %}
+				</span>
+			
+		</span>
+	</div>
 </body>
 </html>

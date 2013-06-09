@@ -5,7 +5,7 @@ DEBUG = False
 GOOGLE_ANALYTICS_ID = ''
 
 webapp2_config = {
-    'webapp2_extras.sessions': {'secret_key': 'BDFJ3487N832NE9'},
+    'webapp2_extras.sessions': {'secret_key': 'FASDHJDASDHFASHDFAS'},
     'webapp2_extras.jinja2': {'template_path': ['templates'],
                               'environment_args': {'extensions': ['jinja2.ext.with_']}},
     'system_name': APPLICATION_NAME,
