@@ -1,0 +1,9 @@
+header#header { padding: 10px; border-bottom: 1px solid #999; }
+#content_container { }
+
+nav#menu { float: left; min-height: 500px; border-right: 1px solid #999; width: 200px; }
+nav#menu div { padding: 10px; }
+nav#menu div a { display: block; }
+
+#content { padding: 10px; }
+#content.loggedin { margin-left: 200px; }

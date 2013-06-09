@@ -1,0 +1,14 @@
+<nav id="menu">
+	<div>
+		<a href="/syndicates">View my Syndicates</a>
+		<a href="/join">Join a Syndicate</a>
+		<a href="/create">Create a Syndicate</a>
+		{% if is_admin %}
+		<h3>Admin</h3>
+		<a href="/admin/games">Manage Games</a>
+		{% endif %}
+		<h3>Account</h3>
+		<a href="/profile">Profile</a>
+		<a href="{{logout_url}}">Log out</a>
+	</div>
+</nav>

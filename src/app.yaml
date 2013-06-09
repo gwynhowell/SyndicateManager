@@ -39,15 +39,15 @@ handlers:
     static_dir: static/images
     
   - url: /tasks/.*
-    script: main.app
+    script: cm.main.app
     secure: always
     login: admin
  
   - url: /cron/.*
-    script: main.app
+    script: cm.main.app
     secure: always
     login: admin
     
   - url: /.*
-    script: main.application
+    script: cm.main.application
     secure: always
