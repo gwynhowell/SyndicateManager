@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block css %}
+<style type="text/css">
+th.name { width: 200px; }
+tr.draw th { width: 20px; text-align: center; }
+th.draw { text-align: center; }
+th.price { width: 75px; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<h1>Games</h1>
+
+<a href="{{uri_for('admin-create-game')}}" class="btn btn-primary btn-large">Create Game</a>
+{% if game %}
+<input type="text" name="id" value="{{game.key.id()}}" />
+{% endif %}
+
+<table class="table table-bordered">
+<thead>
+<tr>
+	<th rowspan="2" class="name">Name</th>
+	<th rowspan="2">Description</th>
+	<th colspan="7" class="draw">Draws</th>
+	<th rowspan="2" class="price">Price</th>
+</tr>
+<tr class="draw">
+	<th>S</th>
+	<th>M</th>
+	<th>T</th>
+	<th>W</th>
+	<th>T</th>
+	<th>F</th>
+	<th>S</th>
+</tr>
+</thead>
+<tbody>
+{% for game in games %}
+<tr>
+	<td><a href="/admin/game/{{game.key.id()}}">{{game.name}}</a></td>
+	<td>{{game.description}}</td>
+	<td>{% if game.draw_sun %}<i class="icon-ok"></i>{% endif %}</td>
+	<td>{% if game.draw_mon %}<i class="icon-ok"></i>{% endif %}</td>
+	<td>{% if game.draw_tue %}<i class="icon-ok"></i>{% endif %}</td>
+	<td>{% if game.draw_wed %}<i class="icon-ok"></i>{% endif %}</td>
+	<td>{% if game.draw_thu %}<i class="icon-ok"></i>{% endif %}</td>
+	<td>{% if game.draw_fri %}<i class="icon-ok"></i>{% endif %}</td>
+	<td>{% if game.draw_sat %}<i class="icon-ok"></i>{% endif %}</td>
+	<td>{{game.price|format_currency}}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+{% endblock %}

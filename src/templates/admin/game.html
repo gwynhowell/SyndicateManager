@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block js %}
+<script type="text/javascript">
+(function() {
+	$(function() {
+		$('#frmMain').submit(function() {
+			if ($('#name').val() == '') {
+				alert('Enter a name for the game');
+				return false;
+			}
+			
+			return true;
+		});
+	});
+})();
+</script>
+
+{% endblock %}
+
+{% block content %}
+
+{% if game %}
+<h3>{{game.name}}</h3>
+{% else %}
+<h3>New Game</h3>
+{% endif %}
+
+<form id="frmMain" action="{{form_url}}" method="POST">
+
+	<label>Name</label>
+	<input type="text" class="" name="name" id="name" placeholder="Enter Game Name" value="{% if game %}{{game.name}}{% endif %}" />
+	
+	<label>Alias</label>
+	{% if game %}
+	<input type="text" class="" id="alias" value="{{game.alias}}" disabled="disabled" />
+	{% else %}
+	<input type="text" class="" name="alias" id="alias" placeholder="Enter Game Alias" />
+	{% endif %}
+	
+	<label>Description</label>
+	<textarea name="description" id="description">{% if game %}{{game.description}}{% endif %}</textarea>
+	
+	<label>Price</label>
+	<div class="input-prepend">
+  		<span class="add-on">&pound;</span>
+		<input type="text" name="price" id="price" placeholder="Enter Per Draw Price" value="{% if game %}{{game.price}}{% endif %}" />
+	</div>
+
+	<label>Draws</label>
+	<label class="checkbox">
+		<input type="checkbox" name="draws" id="draw0" value="0" {% if game and game.draw_sun %}checked="checked"{% endif %} /> Sunday
+	</label>
+	<label class="checkbox">
+		<input type="checkbox" name="draws" id="draw1" value="1" {% if game and game.draw_mon %}checked="checked"{% endif %} /> Monday
+	</label>
+	<label class="checkbox">
+		<input type="checkbox" name="draws" id="draw2" value="2" {% if game and game.draw_tue %}checked="checked"{% endif %} /> Tuesday
+	</label>
+	<label class="checkbox">
+		<input type="checkbox" name="draws" id="draw3" value="3" {% if game and game.draw_wed %}checked="checked"{% endif %} /> Wednesday
+	</label>
+	<label class="checkbox">
+		<input type="checkbox" name="draws" id="draw4" value="4" {% if game and game.draw_thu %}checked="checked"{% endif %} /> Thursday
+	</label>
+	<label class="checkbox">
+		<input type="checkbox" name="draws" id="draw5" value="5" {% if game and game.draw_fri %}checked="checked"{% endif %} /> Friday
+	</label>
+	<label class="checkbox">
+		<input type="checkbox" name="draws" id="draw6" value="6" {% if game and game.draw_sat %}checked="checked"{% endif %} /> Saturday
+	</label>
+
+	<a href="/admin/games" class="btn">Cancel</a>
+	<input type="submit" id="btnSave" value="Save" class="btn btn-primary" />
+
+</form>
+
+{% endblock %}

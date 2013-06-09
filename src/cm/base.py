@@ -6,15 +6,20 @@ import settings
 import util
 import webapp2
 
+def format_currency(value):
+#  return "${:,.2f}".format(value)
+  return "&pound;{:,.2f}".format(value)
+
 def jinja2_factory(app):
     j = jinja2.Jinja2(app)
     j.environment.filters.update({
-        
+        'format_currency': format_currency
     })
     j.environment.globals.update({
         'csrf_token': util.generate_csrf_token,
         'getattr': getattr,
-        'str': str
+        'str': str,
+        'uri_for': webapp2.uri_for
     })
     return j
 

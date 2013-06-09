@@ -6,4 +6,6 @@ nav#menu div { padding: 10px; }
 nav#menu div a { display: block; }
 
 #content { padding: 10px; }
+#content h1:first-child, #content h3:first-child, #content h3:first-child { margin-top: 0px; }
+
 #content.loggedin { margin-left: 200px; }
