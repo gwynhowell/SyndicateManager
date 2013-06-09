@@ -4,7 +4,11 @@ import settings
 import webapp2
 
 
-routes = [('/home', handlers.Home),
+routes = [
+          webapp2.Route('/home', handlers.Home, 'home'),
+          webapp2.Route('/syndicates', handlers.Syndicates, 'syndicates'),
+          webapp2.Route('/create', handlers.Create, 'create'),          
+          webapp2.Route('/syndicate', handlers.Syndicate, 'syndicate'),
           
           # admin handlers ...
           webapp2.Route('/admin/games', admin.Games, 'admin-games'),

@@ -33,7 +33,7 @@
 	
 	<label>Alias</label>
 	{% if game %}
-	<input type="text" class="" id="alias" value="{{game.alias}}" disabled="disabled" />
+	<input type="text" class="" id="alias" value="{{game.key.id()}}" disabled="disabled" />
 	{% else %}
 	<input type="text" class="" name="alias" id="alias" placeholder="Enter Game Alias" />
 	{% endif %}

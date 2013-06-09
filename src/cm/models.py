@@ -2,7 +2,6 @@ from google.appengine.ext import ndb
 
 class Game(ndb.Model):
   name = ndb.StringProperty()
-  alias = ndb.StringProperty()
   description = ndb.StringProperty()
   draws = ndb.IntegerProperty(repeated=True)
   price = ndb.FloatProperty()
@@ -40,27 +39,71 @@ class Draw(ndb.Model):
   numbers = ndb.IntegerProperty(repeated=True)
   
 class User(ndb.Model):
+  nickname = ndb.StringProperty()
   first_name = ndb.StringProperty()
   last_name = ndb.StringProperty()
-  email = ndb.StringProperty()
+
+  @property
+  def email(self):
+    return self.key.id()
+
+  @property
+  def display_name(self):
+    if self.nickname:
+      return self.nickname
+    elif self.first_name and self.last_name:
+      return ' '.join([self.first_name, self.last_name])
+    else:
+      return self.email
 
 class Syndicate(ndb.Model):
   name = ndb.StringProperty()
-  game = ndb.KeyProperty(kind=Game)
-  manager = ndb.KeyProperty(kind=User)
-  deputy_manager = ndb.KeyProperty(kind=User)
+  game_key = ndb.KeyProperty(kind=Game)
+  manager_key = ndb.KeyProperty(kind=User)
+  deputy_manager_key = ndb.KeyProperty(kind=User)
+  
+  # denormalized values
+  game_name = ndb.StringProperty()
+  manager_name = ndb.StringProperty()
+  
+  def _pre_put_hook(self):
+    ndb.Model._pre_put_hook(self)
+    
+    game = self.game_key.get()
+    manager = self.manager_key.get()
+    
+    self.ganme_name = game.name
+    self.manager_name = manager.display_name
   
 class Ticket(ndb.Model):
   numbers = ndb.IntegerProperty(repeated=True)
   
 class UserSyndicate(ndb.Model):
-  user = ndb.KeyProperty(kind=User)
-  syndicate = ndb.KeyProperty(kind=Syndicate)
+  user_key = ndb.KeyProperty(kind=User)
+  syndicate_key = ndb.KeyProperty(kind=Syndicate)
   
   # how much money the user has got in the kitty for this syndicate
-  kitty = ndb.FloatProperty()
+  status = ndb.StringProperty(choices=['Invited',     # a manager has invited user to the syndicate, but they haven't accepted
+                                       'Pending',     # a user has entered a code to join a syndicate, but the manager hasn't approved
+                                       'Approved'])   # a user who is a member of a syndicate
+  kitty = ndb.FloatProperty(default=0.0)
+  
+  # denormalized values
+  user_name = ndb.StringProperty()
+  syndicate_name = ndb.StringProperty()
+  game_name = ndb.StringProperty()
+  
+  def _pre_put_hook(self):
+    ndb.Model._pre_put_hook(self)
+    
+    user = self.user_key.get()
+    syndicate = self.syndicate_key.get()
+    
+    self.user_name = user.display_name
+    self.syndicate_name = syndicate.name
+    self.game_name = syndicate.game_name
   
 class UserDraw(ndb.Model):
-  user = ndb.KeyProperty(kind=User)
-  syndicate = ndb.KeyProperty(kind=Syndicate)
-  draw = ndb.KeyProperty(kind=Draw)
+  user_key = ndb.KeyProperty(kind=User)
+  syndicate_key = ndb.KeyProperty(kind=Syndicate)
+  draw_key = ndb.KeyProperty(kind=Draw)

@@ -9,3 +9,5 @@ nav#menu div a { display: block; }
 #content h1:first-child, #content h3:first-child, #content h3:first-child { margin-top: 0px; }
 
 #content.loggedin { margin-left: 200px; }
+
+.clear { clear: both; }

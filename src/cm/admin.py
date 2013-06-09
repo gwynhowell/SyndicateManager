@@ -24,8 +24,7 @@ class Game(_BaseHandler):
     price = self.request.get('price')
     draws = self.request.get_all('draws')
     
-    game = models.Game.get_or_insert(alias,
-                                     alias=alias)
+    game = models.Game.get_or_insert(alias)
     game.name = name
     game.description = description
     game.price = float(price)

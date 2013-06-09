@@ -33,8 +33,8 @@ class _BaseHandler(webapp2.RequestHandler):
                             'application_description':settings.APPLICATION_DESCRIPTION}
     
     if self.guser:
-      user = dal.user_by_email(self.guser.email())
-      self.template_values.update({'user': user,
+      self.user = dal.user_by_email(self.guser.email())
+      self.template_values.update({'user': self.user,
                                    'is_admin': users.is_current_user_admin(),
                                    'logout_url': users.create_logout_url('/')})
     else:

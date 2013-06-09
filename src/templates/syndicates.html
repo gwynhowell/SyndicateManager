@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3>My Syndicates</h3>
+<table class="table table-bordered">
+<thead>
+<tr>
+	<th>Name</th>
+	<th>Game</th>
+	<th>Manager</th>
+</tr>
+</thead>
+<tbody>
+{% for syndicate in syndicates %}
+<tr>
+	<td><a href="/syndicate?id={{syndicate.syndicate_key.id()}}">{{syndicate.syndicate_name}}</a></td>
+	<td>{{syndicate.name}}</td>
+	<td></td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+{% endblock %}

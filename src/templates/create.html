@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3>Create a Syndicate</h3>
+<p>By creating a syndicate you will become the Syndicate Manager.</p>
+
+<form action="/create" method="POST">
+
+<label>Name</label>
+<input type="text" name="name" id="name" />
+<span class="help-inline">Give your syndicate a descriptive name so it can be identified by others</span>
+
+<label>Game</label>
+<select name="game" id="game">
+	<option value="">- Select -</option>
+	{% for game in games %}
+		<option value="{{game.key.id()}}">{{game.name}}</option>
+	{% endfor %}
+</select>
+<span class="help-inline">Select which game this syndicate is for</span>
+
+<div>
+	<a href="/" class="btn">Cancel</a>
+	<input type="submit" value="Next &gt;&gt;" class="btn btn-primary" />
+</div>
+
+</form>
+
+{% endblock %}
