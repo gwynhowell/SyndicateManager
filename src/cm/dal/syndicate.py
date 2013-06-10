@@ -2,7 +2,7 @@ from cm.models import Syndicate, UserSyndicate
 from google.appengine.ext import ndb
 
 def syndicate_by_id(syndicate_id):
-  return ndb.Key(Syndicate, syndicate_id).get()
+  return ndb.Key(Syndicate, long(syndicate_id)).get()
 
 def list_user_syndicates_by_user_key(user_key, limit=100):
   query = UserSyndicate.query(UserSyndicate.user_key == user_key)

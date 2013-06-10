@@ -11,3 +11,5 @@ nav#menu div a { display: block; }
 #content.loggedin { margin-left: 200px; }
 
 .clear { clear: both; }
+
+form.form-horizontal.read div.controls { margin-top: 5px; }

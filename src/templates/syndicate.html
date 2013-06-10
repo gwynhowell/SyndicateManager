@@ -11,50 +11,292 @@ $(function() {
 </script>
 {% endblock %}
 
+{% block css %}
+<style type="text/css">
+table.results th { vertical-align: middle; }
+table.results th.center { text-align: center; }
+</style>
+{% endblock %}
+
 {% block content %}
 
-<h3>Syndicate</h3>
+<h3>{{syndicate.name}}</h3>
 
 <ul id="tabs" class="nav nav-tabs">
   <li class="active"><a href="#main_details">Main Details</a></li>
+  <li><a href="#settings">Settings</a></li>
   <li><a href="#upcoming">Upcoming Games</a></li>
-  <li><a href="#">Results</a></li>
-  <li><a href="#">Members</a></li>
+  <li><a href="#results">Results</a></li>
+  <li><a href="#members">Members</a></li>
 </ul>
 
 <div id="myTabContent" class="tab-content">
 	<div class="tab-pane fade active in" id="main_details">
 	
-		<form class="form-horizontal">
+		<form class="form-horizontal read">
+	
+		<span class="row">
+			<span class="span6">
+				<div class="control-group">
+					<label class="control-label">Syndicate Name</label>
+					<div class="controls">
+						<!-- <input type="text" name="name" id="name" value="{{syndicate.name}}" /> -->
+						{{syndicate.name}}
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label">Game</label>
+					<div class="controls">
+						{{syndicate.game_name}}
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label">Manager</label>
+					<div class="controls">
+						{{syndicate.manager_name}}
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label">Deputy Manager</label>
+					<div class="controls">
+						{% if not syndicate.deputy_key %}
+						None Specified
+						{% endif %}
+					</div>
+				</div>
+			</span>
+			
+			<span class="span6">
+				<div class="control-group">
+					<label class="control-label">Price Per Draw</label>
+					<div class="controls">
+						&pound;2.00
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Draws per week</label>
+					<div class="controls">
+						Tuesday and Friday
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Syndicate Kitty</label>
+					<div class="controls">
+						&pound;0.10
+					</div>
+				</div>
+			</span>
+		</span>
+	
+		
+
 		</form>
 	
 		<p></p>
 	</div>
-	<div class="tab-pane fade active in" id="upcoming">
-		<p></p>
+	<div class="tab-pane fade" id="settings">
+		<div class="alert alert-info">
+			<h4>Syndicate Settings</h4>
+			<p>These settings can only be changed by the syndicate manager</p>
+		</div>
+		
+		
+		<form class="form-horizontal">
+			<div class="control-group">
+				<label class="control-label">Advanced Opt-ins</label>
+				<div class="controls">
+					<input type="text" name="name" id="name" value="{{syndicate.advanced_opt_ins}}" class="input-small" />
+					<div class="help-inline">The number of draws members are allowed to opt-in in advance</div>
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<label class="control-label">Opt-in Auto Close</label>
+				<div class="controls">
+					<input type="text" name="name" id="name" value="{{syndicate.auto_close_hours}}" class="input-small" />
+					<div class="help-inline">The number of hours the opt-in closes before each draw</div>
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<label class="control-label">Overdraft Limit</label>
+				<div class="controls">
+					<input type="text" name="name" id="name" value="{{syndicate.overdraft_limit}}" class="input-small" />
+					<div class="help-inline">If &gt; 0, allows members to opt-in, even if they d not have sufficient finds in the kitty</div>
+				</div>
+			</div>
+			
+			<fieldset>
+				<legend>Spending Winnings</legend>
+				<p>Use the settings below to control when the syndicate kitty is offered to be used to purchase extra lines.</p>
+				
+				<div class="control-group">
+					<label class="control-label">Minimum Kitty</label>
+					<div class="controls">
+						<input type="text" name="name" id="name" value="{{syndicate.winnings_min_kitty}}" class="input-small" />
+						<div class="help-inline">There must be at least this much in the kitty</div>
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label">Minimum Jackpot</label>
+					<div class="controls">
+						<input type="text" name="name" id="name" value="{{syndicate.winnings_min_kitty}}" class="input-small" />
+						<div class="help-inline">The predicted jackpot for the next draw must be at least this amount</div>
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label">Minimum Opt-ins</label>
+					<div class="controls">
+						<input type="text" name="name" id="name" value="{{syndicate.winnings_min_kitty}}" class="input-small" />
+						<div class="help-inline">At least this number of members need to have opted-in to spending the kitty on extra draws</div>
+					</div>
+				</div>
+							
+			</fieldset>
+			
+
+			
+		</form>
+		
+	</div>
+	<div class="tab-pane fade" id="upcoming">
+		
+		<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Date</th>
+				<th>Price</th>
+				<th>Opt In/Out</th>
+				<th>Opt-in Status
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Tuesday 11 June 2013</td>
+				<td>&pound;2.00</td>
+				<td><a href="">Opt In</a></td>
+				<td>Closed</td>
+			</tr>
+			<tr>
+				<td>Friday 14 June 2013</td>
+				<td>&pound;2.00</td>
+				<td><a href="">Opt Out</a></td>
+				<td>Closes in 15 hours</td>
+			</tr>
+			<tr>
+				<td>Tuesday 17 June 2013</td>
+				<td>&pound;2.00</td>
+				<td><a href="">Opt In</a></td>
+				<td>Open</td>
+			</tr>
+		</tbody>
+		</table>
+	</div>
+	<div class="tab-pane fade" id="results">
+		
+		<table class="table table-bordered results">
+		<thead>
+			<tr>
+				<th rowspan="2">Draw #</th>
+				<th rowspan="2">Date</th>
+				<th colspan="3" class="center">Results</th>
+				<th rowspan="2">Jackpot</th>
+				<th colspan="3" class="center">Lines Entered</th>
+				<th rowspan="2">Winnings</th>
+			</tr>
+			<tr>
+				<th>Ball Numbers</th>
+				<th>Lucky Stars</th>
+				<th>Raffle</th>
+				
+				<th>Opt-ins</th>
+				<th>Kitty</th>
+				<th>Total</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>595</td>
+				<td>Tuesday 4th June 2013</td>
+				<td>7 - 14 - 26 - 45 - 50</td>
+				<td>2 - 7</td>
+				<td>LSH166797</td>
+				<td>&pound;19.08 M</td>
+				<td>6 (&pound;12.00)</td>
+				<td>0 (&pound;0.00)</td>
+				<td>6 (&pound;12.00)</td>
+				<td>&pound;0.00</td>
+			</tr>
+			<tr>
+				<td>596</td>
+				<td>Friday 7th June 2013</td>
+				<td>31 - 33 - 34 - 37 - 40</td>
+				<td>1 - 6</td>
+				<td>KRT385377</td>
+				<td>&pound;85.13 M</td>
+				<td>9 (&pound;18.00)</td>
+				<td>14 (&pound;28.00)</td>
+				<td>23 (&pound;46.00)</td>
+				<td>&pound;0.00</td>
+			</tr>
+		</tbody>
+		</table>
+	</div>
+	
+	<div class="tab-pane fade" id="members">
+		
+		<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Member</th>
+				<th>Kitty</th>
+				<th>Role</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Gwyn Howell</td>
+				<td>&pound;20.00</td>
+				<td>Manager</td>
+				<td>Approved</td>
+			</tr>
+			<tr>
+				<td>Lee Bailey</td>
+				<td>&pound;20.00</td>
+				<td>Member</td>
+				<td>Approved</td>
+			</tr>
+			<tr>
+				<td>Paul Kennedy</td>
+				<td>&pound;0.00</td>
+				<td>Member</td>
+				<td>Pending Approval <a href="">Approve Now</a></td>
+			</tr>
+			<tr>
+				<td>Graham Ingleby</td>
+				<td>&pound;0.00</td>
+				<td>Member</td>
+				<td>Invited</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="4">
+					<div class="input-append">
+						<input type="text" placeholder="Enter Email Address" />
+						<input type="button" value="Invite" class="btn btn-primary" />
+					</div>
+				</td>
+			</tr>
+		</tfoot>
+		</table>
 	</div>
 </div>
 
-Main Details
- - Syndicate Name
- - Game Name
- - Price per Draw
- - Draws Per Week: Monday and Thursday
- - Manager
- - Deputy Manager
- 
- - Allow members to opt in up to [x] draws in advance
- - Automatically close opt in [x] hours before each draw
- - Overdraft limit: $x.xx - allows users to opt in, even if they have no money in the kitty
-Upcoming Games
- - Date, Price to play, Opt In / Opt Out
- - Opt in to as many games as I have enough money in the kitty for
-Results
- - Date, #Lines Entered, 
-Members
- - Display Name, Amount in Kitty, Status
-
 {% endblock %}
-
-
-You are a manager for this syndicate. As a syndicate manager, you will be responsible for collection of monies from the syndicate members, and purchase of tickets.
